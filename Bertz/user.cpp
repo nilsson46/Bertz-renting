@@ -7,8 +7,10 @@
 
 #include "user.hpp"
 
+int User::nextId = 1;
+
 User::User(const string& username, const string& password)
-: username(username), password(password){}
+: id(nextId++), username(username), password(password){}
 
 string User::getUsername()const {
     return username;
@@ -16,4 +18,8 @@ string User::getUsername()const {
 
 string User::getPassword()const {
     return password;
+}
+
+int User::getId() const{
+    return id; 
 }

@@ -21,8 +21,11 @@ public:
     User(const string& username, const string& password);
     string getUsername() const;
     string getPassword() const;
+    int getId() const;
     
 private:
+    static int nextId;
+    int id;
     string username;
     string password;
 }; 
