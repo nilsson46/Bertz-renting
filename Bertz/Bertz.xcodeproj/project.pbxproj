@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F4739DD52B5E765B00133461 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DD42B5E765B00133461 /* main.cpp */; };
 		F4739DDD2B5E779F00133461 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DDB2B5E779F00133461 /* user.cpp */; };
+		F4739DE02B5E7C0B00133461 /* database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DDE2B5E7C0B00133461 /* database.cpp */; };
+		F4739DE42B5F1B6D00133461 /* userinput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DE22B5F1B6D00133461 /* userinput.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,10 @@
 		F4739DD42B5E765B00133461 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F4739DDB2B5E779F00133461 /* user.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
 		F4739DDC2B5E779F00133461 /* user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = user.hpp; sourceTree = "<group>"; };
+		F4739DDE2B5E7C0B00133461 /* database.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = database.cpp; sourceTree = "<group>"; };
+		F4739DDF2B5E7C0B00133461 /* database.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = database.hpp; sourceTree = "<group>"; };
+		F4739DE22B5F1B6D00133461 /* userinput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = userinput.cpp; sourceTree = "<group>"; };
+		F4739DE32B5F1B6D00133461 /* userinput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = userinput.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +50,10 @@
 		F4739DC82B5E765B00133461 = {
 			isa = PBXGroup;
 			children = (
+				F4739DE22B5F1B6D00133461 /* userinput.cpp */,
+				F4739DE32B5F1B6D00133461 /* userinput.hpp */,
+				F4739DDE2B5E7C0B00133461 /* database.cpp */,
+				F4739DDF2B5E7C0B00133461 /* database.hpp */,
 				F4739DDB2B5E779F00133461 /* user.cpp */,
 				F4739DDC2B5E779F00133461 /* user.hpp */,
 				F4739DD42B5E765B00133461 /* main.cpp */,
@@ -117,7 +127,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4739DDD2B5E779F00133461 /* user.cpp in Sources */,
+				F4739DE42B5F1B6D00133461 /* userinput.cpp in Sources */,
 				F4739DD52B5E765B00133461 /* main.cpp in Sources */,
+				F4739DE02B5E7C0B00133461 /* database.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

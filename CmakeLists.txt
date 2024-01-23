@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.5)
+project(BertzRenting)
+
+# Ange C och C++ kompilatorer manuellt
+set(CMAKE_C_COMPILER clang)  # Ange den faktiska kompilatorn du vill använda
+set(CMAKE_CXX_COMPILER clang++)  # Ange den faktiska kompilatorn du vill använda
+
+# Lägg till sökvägen till SQLiteCpp
+add_subdirectory(thirdparty/SQLiteCpp)
+
+# Lägg till sökvägen till dina källkodsfiler
+add_executable(main 
+    src/main.cpp
+    # Lägg till andra källkodsfiler här om du har fler
+)
+
+# Ange länkning för huvudmålet
+target_link_libraries(main 
+    SQLiteCpp
+    sqlite3
+    pthread
+    dl
+)
