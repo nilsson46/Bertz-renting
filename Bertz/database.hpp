@@ -18,10 +18,12 @@ using std::string;
 class Database {
 public:
     Database(const string& dbFileName);
+    ~Database();
     bool addUser(const User& user);
-    bool deleteUser(const string& username);
-    bool authenticateUser(const string& username, const string& password);
+    bool deleteUser(int userId);
     User getUserByUsername(const string& username);
+    std::pair<bool, int> validateUserCredentials(const std::string& username, const std::string& password);
+    sqlite3* getDb() const;
     
 private:
     sqlite3* db;

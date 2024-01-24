@@ -12,6 +12,12 @@
 
 using std::string;
 using std::cout;
+
+Database::~Database() {
+    if (db) {
+        sqlite3_close(db);
+    }
+}
 Database::Database(const string& dbFileName) {
     std::ifstream file(dbFileName);
     bool fileExists = file.good();
@@ -47,16 +53,102 @@ Database::Database(const string& dbFileName) {
 
 
 bool Database::addUser(const User& user) {
-    string sql = "INSERT INTO users (username, password) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "');";
-    int rc = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
+    // Kontrollera om användarnamnet redan finns
+    string checkSql = "SELECT COUNT(*) FROM users WHERE username = '" + user.getUsername() + "';";
+    sqlite3_stmt* checkStmt;
+
+    int checkResult = sqlite3_prepare_v2(db, checkSql.c_str(), -1, &checkStmt, 0);
+
+    if (checkResult != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+
+    int rowCount = 0;
+
+    // Utför SELECT-frågan
+    while (sqlite3_step(checkStmt) == SQLITE_ROW) {
+        rowCount = sqlite3_column_int(checkStmt, 0);
+    }
+
+    sqlite3_finalize(checkStmt);
+
+    // Om användarnamnet redan finns, returnera false
+    if (rowCount > 0) {
+        fprintf(stderr, "User already exists. Registration failed.\n");
+        return false;
+    }
+
+    // Om användarnamnet inte finns, fortsätt med att lägga till användaren
+    string insertSql = "INSERT INTO users (username, password) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "');";
+    int rc = sqlite3_exec(db, insertSql.c_str(), 0, 0, 0);
 
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "Couldnt add user: %s\n", sqlite3_errmsg(db));
-        
+        fprintf(stderr, "Could not add user: %s\n", sqlite3_errmsg(db));
         return false;
     }
 
     return true;
 }
+
+sqlite3* Database::getDb() const {
+    return db;
+}
+
+std::pair<bool, int> Database::validateUserCredentials(const std::string& username, const std::string& password) {
+    string sql = "SELECT id FROM users WHERE username = ? AND password = ?;";
+    sqlite3_stmt* stmt;
+
+    int result = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, 0);
+
+    if (result != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return std::make_pair(false, 0);
+    }
+
+    // Bind the parameters
+    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, password.c_str(), -1, SQLITE_STATIC);
+
+    int userId = 0;
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        userId = sqlite3_column_int(stmt, 0);
+    }
+
+    sqlite3_finalize(stmt);
+
+    // Return true if the credentials are valid, along with the user ID
+    return std::make_pair(userId > 0, userId);
+}
+
+
+bool Database::deleteUser(int userId) {
+    std::string deleteSql = "DELETE FROM users WHERE id = ?;";
+    sqlite3_stmt* deleteStmt;
+
+    int deleteResult = sqlite3_prepare_v2(db, deleteSql.c_str(), -1, &deleteStmt, 0);
+
+    if (deleteResult != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+
+    // Binda parametern för id
+    sqlite3_bind_int(deleteStmt, 1, userId);
+
+    int rc = sqlite3_step(deleteStmt);
+
+    sqlite3_finalize(deleteStmt);
+
+    if (rc != SQLITE_DONE) {
+        fprintf(stderr, "Error deleting user: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+
+    return true;
+}
+
+
 
 

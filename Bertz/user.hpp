@@ -1,33 +1,43 @@
-//
-//  user.hpp
-//  Bertz
-//
-//  Created by Simon Nilsson on 2024-01-22.
-//
-
-#ifndef user_hpp
-#define user_hpp
+// user.hpp
 #pragma once
+#ifndef USER_HPP
+#define USER_HPP
 
-#include <iostream>
-#include <stdio.h>
+#include <string>
 
-using std::string;
-
-
-class User{
-public:
-    //Constructor
-    User(const string& username, const string& password);
-    string getUsername() const;
-    string getPassword() const;
-    int getId() const;
-    
+class User {
 private:
     static int nextId;
-    int id;
-    string username;
-    string password;
-}; 
 
-#endif /* user_hpp */
+    int id;
+    std::string username;
+    std::string password;
+
+public:
+    // Ny konstruktor utan krav på indata
+    User();
+
+    // Konstruktor med möjlighet att ange användarnamn och lösenord direkt
+    User(const std::string& username, const std::string& password);
+
+    // ... övrig kod ...
+
+    // Funktioner för att sätta användarnamn och lösenord
+    void setUsername(const std::string& newUsername);
+    void setPassword(const std::string& newPassword);
+
+    // Funktion för att hämta användarinput
+    static std::string getUserInput(const std::string& prompt);
+    bool login();
+    // Getter-funktioner
+    std::string getUsername() const;
+    std::string getPassword() const;
+    int getId() const;
+
+    // Funktion för att registrera en ny användare
+    void registerNewUser();
+    
+    
+};
+
+#endif

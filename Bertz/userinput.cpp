@@ -8,8 +8,12 @@
 #include "userinput.hpp"
 #include <iostream>
 
+using std::cout;
+using std::cin;
+using std::string;
 
-User UserInputHandler::getUserInput() {
+
+/*User UserInputHandler::getUserInput() {
     std::string username, password;
 
     std::cout << "Ange användarnamn: ";
@@ -20,4 +24,13 @@ User UserInputHandler::getUserInput() {
 
     // Skapa en User med användarinput och returnera den
     return User(username, password);
+} */
+
+
+string getUserInput(const string& prompt) {
+    string userInput;
+    cout << prompt;
+    std::getline(std::cin, userInput);
+    return userInput;
 }
+
