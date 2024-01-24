@@ -33,7 +33,7 @@ public:
     std::string getUsername() const;
     std::string getPassword() const;
     int getId() const;
-
+    void setId(int id);
     // Funktion för att registrera en ny användare
     void registerNewUser();
     

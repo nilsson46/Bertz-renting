@@ -20,20 +20,23 @@ int main() {
 
         switch (choice) {
             case 1:
-                std::cout << (loggedIn ? "Viewing profile...\n" : "Login...\n");
-                if (!loggedIn) {
-                    newUser.setUsername(newUser.getUserInput("Enter your username: "));
-                    newUser.setPassword(newUser.getUserInput("Enter your password: "));
-                    auto [loginSuccess, userId] = myDatabase.validateUserCredentials(newUser.getUsername(), newUser.getPassword());
-                    if (loginSuccess) {
-                        std::cout << "Login successful. Welcome, " << newUser.getUsername() << " with ID " << userId << "!\n";
-                        loggedIn = true;
-                        currentMenu = &menuOptionsLoggedIn;  // Switch to the logged-in menu
-                    } else {
-                        std::cout << "Invalid username or password. Login failed.\n";
-                    }
-                }
-                break;
+                   std::cout << (loggedIn ? "Viewing profile...\n" : "Login...\n");
+                   if (!loggedIn) {
+                       newUser.setUsername(newUser.getUserInput("Enter your username: "));
+                       newUser.setPassword(newUser.getUserInput("Enter your password: "));
+                       auto [loginSuccess, userId] = myDatabase.validateUserCredentials(newUser.getUsername(), newUser.getPassword());
+                       if (loginSuccess) {
+                           // Set the ID for the newUser object
+                           newUser.setId(userId);
+
+                           std::cout << "Login successful. Welcome, " << newUser.getUsername() << " with ID " << userId << "!\n";
+                           loggedIn = true;
+                           currentMenu = &menuOptionsLoggedIn;  // Switch to the logged-in menu
+                       } else {
+                           std::cout << "Invalid username or password. Login failed.\n";
+                       }
+                   }
+                   break;
 
             case 2:
                 if (!loggedIn) {

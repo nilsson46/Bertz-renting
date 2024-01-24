@@ -32,7 +32,9 @@ std::string User::getPassword() const {
 int User::getId() const {
     return id;
 }
-
+void User::setId(int id) {
+    this->id = id;
+}
 void User::setUsername(const std::string& newUsername) {
     username = newUsername;
 }
