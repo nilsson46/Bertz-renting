@@ -24,6 +24,7 @@ public:
     void setPassword(const std::string& newPassword);
     
     static std::string getUserInput(const std::string& prompt);
+    static int getUserInputInt(const std::string& prompt);
     bool login();
   
     std::string getUsername() const;

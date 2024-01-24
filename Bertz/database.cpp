@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sqlite3.h>
 
 #include "database.hpp"
 
@@ -139,6 +140,48 @@ bool Database::deleteUser(int userId) {
     
     if (rc != SQLITE_DONE) {
         fprintf(stderr, "Error deleting user: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+    
+    return true;
+}
+
+bool Database::addCar(const Car& car) {
+    
+    string checkSql = "SELECT COUNT(*) FROM cars WHERE registration_number = '" + car.getRegistrationNumber() + "';";
+    sqlite3_stmt* checkStmt;
+    
+    int checkResult = sqlite3_prepare_v2(db, checkSql.c_str(), -1, &checkStmt, 0);
+    
+    if (checkResult != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+    
+    int rowCount = 0;
+    
+    while (sqlite3_step(checkStmt) == SQLITE_ROW) {
+        rowCount = sqlite3_column_int(checkStmt, 0);
+    }
+    
+    sqlite3_finalize(checkStmt);
+    
+    if (rowCount > 0) {
+        fprintf(stderr, "Car with the same registration number already exists. Adding car failed.\n");
+        return false;
+    }
+    
+    
+    string insertSql = "INSERT INTO cars (passenger_capacity, model, brand, registration_number) VALUES ("
+                        + std::to_string(car.getPassengerCapacity()) + ", '"
+                        + car.getModel() + "', '"
+                        + car.getBrand() + "', '"
+                        + car.getRegistrationNumber() + "');";
+    
+    int rc = sqlite3_exec(db, insertSql.c_str(), 0, 0, 0);
+    
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "Could not add car: %s\n", sqlite3_errmsg(db));
         return false;
     }
     

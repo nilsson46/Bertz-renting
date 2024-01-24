@@ -2,6 +2,7 @@
 #include "database.hpp"
 #include <iostream>
 #include <utility>
+#include <limits>
 
 using std::string;
 using std::cin;
@@ -22,7 +23,12 @@ std::string User::getUserInput(const std::string& prompt) {
     cin >> userInput;
     return userInput;
 }
-
+int User::getUserInputInt(const std::string& prompt) {
+    int userInput;
+    std::cout << prompt;
+    cin >> userInput;
+    return userInput;
+}
 std::string User::getUsername() const {
     return username;
 }
