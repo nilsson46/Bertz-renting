@@ -188,6 +188,31 @@ bool Database::addCar(const Car& car, const User& owner) {
     return true;
 }
 
+bool Database::deleteCar(const std::string& registrationNumber) {
+    std::string deleteSql = "DELETE FROM cars WHERE registration_number = ?;";
+    sqlite3_stmt* deleteStmt;
+
+    int deleteResult = sqlite3_prepare_v2(db, deleteSql.c_str(), -1, &deleteStmt, 0);
+
+    if (deleteResult != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+
+    sqlite3_bind_text(deleteStmt, 1, registrationNumber.c_str(), -1, SQLITE_STATIC);
+
+    int rc = sqlite3_step(deleteStmt);
+
+    sqlite3_finalize(deleteStmt);
+
+    if (rc != SQLITE_DONE) {
+        fprintf(stderr, "Error deleting car: %s\n", sqlite3_errmsg(db));
+        return false;
+    }
+
+    return true;
+}
+
 
 
 

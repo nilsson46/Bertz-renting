@@ -8,7 +8,7 @@ int main() {
     Database myDatabase("Bertz.db");
     User newUser;
     DisplayMenu menuOptionsLoggedOut({"Login", "Register new user", "Exit"});
-    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" "Exit"});
+    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Exit"});
     
     DisplayMenu* currentMenu = &menuOptionsLoggedOut;  // Start with the logged-out menu
     
@@ -92,9 +92,19 @@ int main() {
                 }
                 break;
                 
-            case 5:
-                std::cout << "Exiting program.\n";
-                exitProgram = true;
+            case 5: 
+                if (loggedIn) {
+                    std::string registrationNumber;
+                    std::cout << "Enter the registration number of the car you want to delete: ";
+                    std::cin >> registrationNumber;
+                    if (myDatabase.deleteCar(registrationNumber)) {
+                        std::cout << "Car deleted successfully.\n";
+                    } else {
+                        std::cout << "Failed to delete car.\n";
+                    }
+                } else {
+                    std::cout << "Invalid choice. Please try again.\n";
+                }
                 break;
                 
             default:
@@ -103,5 +113,6 @@ int main() {
         
     } while (!exitProgram);
     
+    return 0;
     return 0;
 }

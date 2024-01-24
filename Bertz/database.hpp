@@ -21,8 +21,9 @@ public:
     Database(const string& dbFileName);
     ~Database();
     bool addUser(const User& user);
-    bool addCar(const Car& car, const User& owner);
     bool deleteUser(int userId);
+    bool addCar(const Car& car, const User& owner);
+    bool deleteCar(const string& registrationNumber);
     User getUserByUsername(const string& username);
     std::pair<bool, int> validateUserCredentials(const std::string& username, const std::string& password);
     sqlite3* getDb() const;
