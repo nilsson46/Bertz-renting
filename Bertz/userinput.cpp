@@ -15,7 +15,7 @@ using std::string;
 string getUserInput(const string& prompt) {
     string userInput;
     cout << prompt;
-    std::getline(std::cin, userInput);
+    cin >> userInput;
     return userInput;
 }
 

@@ -1,6 +1,7 @@
 #include "database.hpp"
 #include "user.hpp"
 #include "displayMenu.hpp"
+#include "userinput.hpp"
 #include <iostream>
 
 int main() {
@@ -13,6 +14,7 @@ int main() {
     
     int choice;
     bool loggedIn = false;
+    bool exitProgram = false;
     
     do {
         currentMenu->showMenu(loggedIn);
@@ -40,8 +42,6 @@ int main() {
                 
             case 2:
                 if (!loggedIn) {
-                    newUser.setUsername(newUser.getUserInput("Enter your username: "));
-                    newUser.setPassword(newUser.getUserInput("Enter your password: "));
                     newUser.registerNewUser();
                 } else {
                     std::cout << "Logout successful. Goodbye, " << newUser.getUsername() << "!\n";
@@ -55,22 +55,28 @@ int main() {
                     std::cout << "Deleting account...\n";
                     if (myDatabase.deleteUser(newUser.getId())) {
                         std::cout << "Account deleted successfully.\n";
-                        std::cout << newUser.getId();
                         loggedIn = false;
                         currentMenu = &menuOptionsLoggedOut;
+                        newUser = User();  // Återställ newUser-objektet efter att kontot har tagits bort
                     } else {
                         std::cout << "Failed to delete account.\n";
                     }
                 } else {
                     std::cout << "Exiting program.\n";
+                    exitProgram = true;  // Sätt flaggan för att indikera att programmet ska avslutas
                 }
+                break;
+                
+            case 4:
+                std::cout << "Exiting program.\n";
+                exitProgram = true;  // Sätt flaggan för att indikera att programmet ska avslutas
                 break;
                 
             default:
                 std::cout << "Invalid choice. Please try again.\n";
         }
         
-    } while (choice != 3);
+    } while (!exitProgram);  // Ändrat villkor till flaggan för att kontrollera exit-beteendet
     
     return 0;
 }

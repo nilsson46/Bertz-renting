@@ -12,8 +12,7 @@
 #include <stdio.h>
 #include <string>
 #include <utility>
-class UserInput{
-public:
-    static std::string getUserInput(const std::string& prompt);
-};
+
+std::string getUserInput(const std::string& prompt);
+
 #endif /* userinput_hpp */

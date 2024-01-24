@@ -17,7 +17,9 @@ User::User(const std::string& username, const std::string& password)
 std::string User::getUserInput(const std::string& prompt) {
     std::string userInput;
     std::cout << prompt;
-    std::getline(std::cin, userInput);
+    cin.sync();
+    //std::getline(std::cin, userInput);
+    cin >> userInput;
     return userInput;
 }
 

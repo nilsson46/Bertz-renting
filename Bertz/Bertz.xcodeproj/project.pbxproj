@@ -12,6 +12,7 @@
 		F4739DE02B5E7C0B00133461 /* database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DDE2B5E7C0B00133461 /* database.cpp */; };
 		F4739DE42B5F1B6D00133461 /* userinput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DE22B5F1B6D00133461 /* userinput.cpp */; };
 		F4739DE72B5FEC7C00133461 /* displayMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DE52B5FEC7C00133461 /* displayMenu.cpp */; };
+		F4739DEA2B612DB700133461 /* car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4739DE82B612DB700133461 /* car.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,8 @@
 		F4739DE32B5F1B6D00133461 /* userinput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = userinput.hpp; sourceTree = "<group>"; };
 		F4739DE52B5FEC7C00133461 /* displayMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = displayMenu.cpp; sourceTree = "<group>"; };
 		F4739DE62B5FEC7C00133461 /* displayMenu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = displayMenu.hpp; sourceTree = "<group>"; };
+		F4739DE82B612DB700133461 /* car.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = car.cpp; sourceTree = "<group>"; };
+		F4739DE92B612DB700133461 /* car.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = car.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +56,8 @@
 		F4739DC82B5E765B00133461 = {
 			isa = PBXGroup;
 			children = (
+				F4739DE82B612DB700133461 /* car.cpp */,
+				F4739DE92B612DB700133461 /* car.hpp */,
 				F4739DE52B5FEC7C00133461 /* displayMenu.cpp */,
 				F4739DE62B5FEC7C00133461 /* displayMenu.hpp */,
 				F4739DE22B5F1B6D00133461 /* userinput.cpp */,
@@ -131,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4739DEA2B612DB700133461 /* car.cpp in Sources */,
 				F4739DDD2B5E779F00133461 /* user.cpp in Sources */,
 				F4739DE42B5F1B6D00133461 /* userinput.cpp in Sources */,
 				F4739DE72B5FEC7C00133461 /* displayMenu.cpp in Sources */,
