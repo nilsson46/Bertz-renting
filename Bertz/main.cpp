@@ -8,7 +8,7 @@ int main() {
     Database myDatabase("Bertz.db");
     User newUser;
     DisplayMenu menuOptionsLoggedOut({"Login", "Register new user", "Exit"});
-    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Exit"});
+    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Show Available Cars" ,"Exit"});
     
     DisplayMenu* currentMenu = &menuOptionsLoggedOut;  // Start with the logged-out menu
     
@@ -107,12 +107,19 @@ int main() {
                 }
                 break;
                 
+            case 6:
+                if(loggedIn){
+                    myDatabase.getAllAvailableCars();
+                }else{
+                    std::cout << "Didnt find any available cars.\n";
+                }
+                break;
+                
             default:
                 std::cout << "Invalid choice. Please try again.\n";
         }
         
     } while (!exitProgram);
     
-    return 0;
     return 0;
 }

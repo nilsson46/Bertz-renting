@@ -188,6 +188,34 @@ bool Database::addCar(const Car& car, const User& owner) {
     return true;
 }
 
+void Database::getAllAvailableCars() {
+    std::string sql = "SELECT passenger_capacity, model, brand, registration_number FROM cars WHERE booked_until IS NULL;";
+
+    sqlite3_stmt* stmt;
+    int result = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, 0);
+
+    if (result != SQLITE_OK) {
+        fprintf(stderr, "Could not prepare statement: %s\n", sqlite3_errmsg(db));
+        return;
+    }
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int passengerCapacity = sqlite3_column_int(stmt, 0);
+        std::string model = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        std::string brand = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        std::string registrationNumber = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+
+        std::cout << "Registration Number: " << registrationNumber << "\n";
+        std::cout << "Passenger Capacity: " << passengerCapacity << "\n";
+        std::cout << "Model: " << model << "\n";
+        std::cout << "Brand: " << brand << "\n";
+        std::cout << "------------------------\n";
+    }
+
+    sqlite3_finalize(stmt);
+}
+
+
 bool Database::deleteCar(const std::string& registrationNumber) {
     std::string deleteSql = "DELETE FROM cars WHERE registration_number = ?;";
     sqlite3_stmt* deleteStmt;

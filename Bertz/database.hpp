@@ -20,12 +20,17 @@ class Database {
 public:
     Database(const string& dbFileName);
     ~Database();
+    
     bool addUser(const User& user);
     bool deleteUser(int userId);
-    bool addCar(const Car& car, const User& owner);
-    bool deleteCar(const string& registrationNumber);
     User getUserByUsername(const string& username);
     std::pair<bool, int> validateUserCredentials(const std::string& username, const std::string& password);
+    
+    bool addCar(const Car& car, const User& owner);
+    bool deleteCar(const string& registrationNumber);
+    void getAllAvailableCars();
+    
+
     sqlite3* getDb() const;
     
 private:
