@@ -21,7 +21,7 @@ public:
     Database(const string& dbFileName);
     ~Database();
     bool addUser(const User& user);
-    bool addCar(const Car& car);
+    bool addCar(const Car& car, const User& owner);
     bool deleteUser(int userId);
     User getUserByUsername(const string& username);
     std::pair<bool, int> validateUserCredentials(const std::string& username, const std::string& password);

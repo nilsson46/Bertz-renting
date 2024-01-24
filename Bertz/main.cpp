@@ -81,7 +81,7 @@ int main() {
                     Car newCar(passengerCapacity, model, brand, registrationNumber);
                     
                     // Add the car to the database
-                    if (myDatabase.addCar(newCar)) {
+                    if (myDatabase.addCar(newCar, newUser)) {
                         std::cout << "Car added successfully.\n";
                     } else {
                         std::cout << "Failed to add car.\n";

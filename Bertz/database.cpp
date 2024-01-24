@@ -146,7 +146,7 @@ bool Database::deleteUser(int userId) {
     return true;
 }
 
-bool Database::addCar(const Car& car) {
+bool Database::addCar(const Car& car, const User& owner) {
     
     string checkSql = "SELECT COUNT(*) FROM cars WHERE registration_number = '" + car.getRegistrationNumber() + "';";
     sqlite3_stmt* checkStmt;
@@ -171,8 +171,8 @@ bool Database::addCar(const Car& car) {
         return false;
     }
     
-    
-    string insertSql = "INSERT INTO cars (passenger_capacity, model, brand, registration_number) VALUES ("
+    string insertSql = "INSERT INTO cars (owner_id, passenger_capacity, model, brand, registration_number) VALUES ("
+                        + std::to_string(owner.getId()) + ", "
                         + std::to_string(car.getPassengerCapacity()) + ", '"
                         + car.getModel() + "', '"
                         + car.getBrand() + "', '"
