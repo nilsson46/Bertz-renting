@@ -1,4 +1,9 @@
-// displayMenu.cpp
+//
+//  displaymenu.cpp
+//  Bertz
+//
+//  Created by Simon Nilsson on 2024-01-22.
+//
 #include "displayMenu.hpp"
 #include <iostream>
 
@@ -12,6 +17,15 @@ void DisplayMenu::showMenu(bool loggedIn) const {
 
 int DisplayMenu::getUserChoice() const {
     int choice;
+    std::cout << "Enter your choice: ";
     std::cin >> choice;
+    
+    while (std::cin.fail()) {
+        std::cin.clear();  // återställ felstatus
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // rensa inmatningsbufferten
+        std::cout << "Invalid input. Please enter a number: ";
+        std::cin >> choice;
+    }
+    
     return choice;
 }

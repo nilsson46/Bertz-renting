@@ -1,3 +1,9 @@
+//
+//  user.cpp
+//  Bertz
+//
+//  Created by Simon Nilsson on 2024-01-22.
+//
 #include "user.hpp"
 #include "database.hpp"
 #include <iostream>
@@ -51,7 +57,7 @@ void User::setPassword(const std::string& newPassword) {
     password = newPassword;
 }
 
-void User::registerNewUser() {
+bool User::registerNewUser() {
     Database database("Bertz.db");
     
     setUsername(getUserInput("Enter your username: "));
@@ -65,7 +71,7 @@ void User::registerNewUser() {
     if (checkResult != SQLITE_OK) {
         cerr << "Could not prepare statement: " << sqlite3_errmsg(database.getDb()) << endl;
         cout << "Failed to register user." << endl;
-        return;
+        return false;
     }
     
     sqlite3_bind_text(checkStmt, 1, getUsername().c_str(), -1, SQLITE_STATIC);
@@ -80,13 +86,20 @@ void User::registerNewUser() {
     
     if (rowCount > 0) {
         cout << "User already exists. Registration failed." << endl;
-    } else {
-        if (database.addUser(*this)) {
-            cout << "Registration successful. Welcome, " << getUsername() << endl;
-        } else {
-            cout << "Failed to add user to the database." << endl;
-        }
+        return false;  // User already exists, return false
     }
+    
+    // User doesn't exist, proceed to add user
+    string insertSql = "INSERT INTO users (username, password) VALUES ('" + getUsername() + "', '" + getPassword() + "');";
+    int rc = sqlite3_exec(database.getDb(), insertSql.c_str(), 0, 0, 0);
+    
+    if (rc != SQLITE_OK) {
+        cerr << "Could not add user: " << sqlite3_errmsg(database.getDb()) << endl;
+        return false;  // Failed to add user, return false
+    }
+    
+    cout << "Registration successful. Welcome, " << getUsername() << endl;
+    return true;
 }
 
 bool User::login() {

@@ -28,9 +28,18 @@ public:
     
     bool addCar(const Car& car, const User& owner);
     bool deleteCar(const string& registrationNumber);
+    bool updateCar (const Car& car);
     void getAllAvailableCars();
+    int getCarOwnerID(const std::string& registrationNumber) const;
+    Car getCarDetails(const std::string& registrationNumber);
     
-
+    bool bookCar(const std::string& registrationNumber, int userId, int passengerCount, const std::chrono::system_clock::time_point& bookingDateTime);
+    
+    bool updateCarBooking(const std::string& registrationNumber, const std::chrono::system_clock::time_point& bookingDateTime);
+    
+    bool insertBookingRecord(int carId, int userId, int passengerCount, const std::chrono::system_clock::time_point& bookingDateTime);
+    
+    bool isCarAvailable(const std::string& registrationNumber, int passengerCount);
     sqlite3* getDb() const;
     
 private:
