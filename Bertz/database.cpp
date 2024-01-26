@@ -108,7 +108,6 @@ std::pair<bool, int> Database::validateUserCredentials(const std::string& userna
         return std::make_pair(false, 0);
     }
     
-    // Bind the parameters
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 2, password.c_str(), -1, SQLITE_STATIC);
     
@@ -343,7 +342,6 @@ bool Database::isCarAvailable(const std::string& registrationNumber, int passeng
     
     sqlite3_finalize(queryStmt);
     
-    // Check if the car is available and if the passenger count is within capacity
     if (passengerCapacity >= 0 && passengerCapacity >= passengerCount) {
         return true;
     }
@@ -357,21 +355,20 @@ bool Database::bookCar(const std::string& registrationNumber, int userId, int pa
         return false;
     }
     
-    // Update the car's booked_until field
     if (!updateCarBooking(registrationNumber, bookingDateTime)) {
         return false;
     }
     
-    // Retrieve car details after update
+    
     Car bookedCar = getCarDetails(registrationNumber);
     
-    // Check passenger capacity
+    
     if (passengerCount > bookedCar.getPassengerCapacity()) {
         std::cout << "Passenger count exceeds the car's capacity.\n";
         return false;
     }
     
-    // Insert booking record
+    
     if (!insertBookingRecord(bookedCar.getId(), userId, passengerCount, bookingDateTime)) {
         return false;
     }

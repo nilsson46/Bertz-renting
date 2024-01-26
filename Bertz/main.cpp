@@ -14,7 +14,7 @@
 #include <sstream>
 int main() {
     Database myDatabase("Bertz.db");
-    //User newUser;
+    
     DisplayMenu menuOptionsLoggedOut({"Login", "Register new user", "Exit"});
     DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Show Available Cars" ,"Update existing car", "Book a car", "Exit"});
     
@@ -172,7 +172,7 @@ int main() {
                         ss >> std::get_time(&tm, "%Y-%m-%d %H:%M");
                         
                         if (ss.fail()) {
-                            std::cout << "Invalid date and time format. Please use YYYY-MM-DD HH:MM.\n";
+                            std::cout << "Invalid date. Please use YYYY-MM-DD HH:MM.\n";
                             break;
                         }
                         

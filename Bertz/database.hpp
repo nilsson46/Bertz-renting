@@ -46,7 +46,4 @@ private:
     sqlite3* db;
 };
 
-
-
-
 #endif /* database_hpp */

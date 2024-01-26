@@ -21,8 +21,8 @@ int DisplayMenu::getUserChoice() const {
     std::cin >> choice;
     
     while (std::cin.fail()) {
-        std::cin.clear();  // återställ felstatus
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // rensa inmatningsbufferten
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please enter a number: ";
         std::cin >> choice;
     }

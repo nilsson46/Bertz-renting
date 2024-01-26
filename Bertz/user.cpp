@@ -89,13 +89,12 @@ bool User::registerNewUser() {
         return false;  // User already exists, return false
     }
     
-    // User doesn't exist, proceed to add user
     string insertSql = "INSERT INTO users (username, password) VALUES ('" + getUsername() + "', '" + getPassword() + "');";
     int rc = sqlite3_exec(database.getDb(), insertSql.c_str(), 0, 0, 0);
     
     if (rc != SQLITE_OK) {
         cerr << "Could not add user: " << sqlite3_errmsg(database.getDb()) << endl;
-        return false;  // Failed to add user, return false
+        return false;
     }
     
     cout << "Registration successful. Welcome, " << getUsername() << endl;
