@@ -16,7 +16,7 @@ int main() {
     Database myDatabase("Bertz.db");
     //User newUser;
     DisplayMenu menuOptionsLoggedOut({"Login", "Register new user", "Exit"});
-    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Show Available Cars" ,"Update existing car", "Book a car"});
+    DisplayMenu menuOptionsLoggedIn({"View Profile", "Logout","Delete user", "Add Car" ,"Delete Car", "Show Available Cars" ,"Update existing car", "Book a car", "Exit"});
     
     DisplayMenu* currentMenu = &menuOptionsLoggedOut;
     User* newUser = nullptr;
@@ -190,6 +190,10 @@ int main() {
                     } else {
                         std::cout << "Invalid choice. Please try again.\n";
                     }
+                    break;
+                case 9:
+                    std::cout << "Exiting program and login out.\n ";
+                    exitProgram = true;
                     break;
                     
                 default:
